@@ -1,0 +1,32 @@
+post_install() {
+  /sbin/ldconfig
+  # utility
+  ln -s /opt/epson-printer-utility/bin/epson-printer-utility /usr/bin/epson-printer-utility
+  install -m 0755 /opt/epson-printer-utility/rules/79-udev-epson.rules /etc/udev/rules.d
+  install -m 0755 /opt/epson-printer-utility/epson-printer-utility.desktop /usr/share/applications
+  install -m 0755 /usr/lib/epson-backend/ecbd.service /usr/lib/systemd/system/ecbd.service
+  echo "In order to use epson-printer-utility, the ecbd.service service must be running:"
+  echo "Use 'systemctl enable --now ecbd.service' to enable and start it now."
+}
+
+pre_remove() {
+  if [ "$1" = 0 ] ; then
+    cd /usr/lib/epson-backend/scripts/
+          ./inst-cups-post.sh deinstall
+          rm -f /usr/lib/epson-printer-utility/setup
+  fi
+}
+
+post_remove() {
+  /sbin/ldconfig
+  rm -f /usr/bin/epson-printer-utility
+  rm -f /etc/udev/rules.d/79-udev-epson.rules
+  rm -f /usr/share/applications/epson-printer-utility.desktop
+  rm -f /opt/epson-printer-utility/lib/*
+  rm -f /usr/lib/epson-backend/setup
+  if command -v semodule > /dev/null 2>&1;then
+    semodule -r epson_pol
+    semodule -r epson-utility
+  fi
+}
+
