@@ -1,6 +1,6 @@
 # Epson Printer Utility 1.2.3 Arch Linux Package
 
-This is my attempt at packaging the the Epson Printer Utility for Linux software for Arch Linux. It works with the `amd64` Deb release, version 1.2.3-1. It is available at the [Epson Download Center](https://download-center.epson.com). I have not been able to find a direct download link that will work in `PKGBUILD`, so you will have to source this yourself.
+This is my attempt at packaging **Epson Printer Utility for Linux** for Arch Linux. It works with the `amd64` Deb release, version 1.2.3-1. It is available at the [Epson Download Center](https://download-center.epson.com). I have not been able to find a direct download link that will work in `PKGBUILD`, so you will have to download this yourself.
 
 ## Installation
 
